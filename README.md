@@ -1,4 +1,6 @@
-<img src="./assets/logo.png" width="200" height="200" />
+<div align="center">
+    <img src="./assets/logo.png" width="200" height="200" />
+</div>
 
 # Atlas
 Atlas is a web platform dedicated to making sure education is accessible to everyone.
