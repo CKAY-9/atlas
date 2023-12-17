@@ -1,0 +1,11 @@
+.header {
+  background-color: rgb(var(--secondary));
+  padding: 0.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+
+  section {
+    display: flex;
+    gap: 1rem;
+  }
+}
