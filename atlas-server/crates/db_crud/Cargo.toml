@@ -1,0 +1,16 @@
+[package]
+name = "atlas_db_crud"
+version.workspace = true
+edition.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "atlas_db_crud"
+path = "src/lib.rs"
+doctest = false
+
+[dependencies]
+atlas_db_schema = { workspace = true }
+diesel = { workspace = true }

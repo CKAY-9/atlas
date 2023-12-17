@@ -1,0 +1,16 @@
+[package]
+name = "atlas_api"
+version.workspace = true
+edition.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "atlas_api"
+path = "src/lib.rs"
+doctest = false
+
+[dependencies]
+actix-web = { workspace = true }
+atlas_api_routes = { workspace = true }

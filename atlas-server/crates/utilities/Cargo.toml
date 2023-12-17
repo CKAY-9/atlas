@@ -1,0 +1,17 @@
+[package]
+name = "atlas_utils"
+version.workspace = true
+edition.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "atlas_utils"
+path = "src/lib.rs"
+doctest = false
+
+[dependencies]
+diesel = { workspace = true }
+dotenv = { workspace = true }
+chrono = { workspace = true }

@@ -1,8 +1,48 @@
-[package]
-name = "atlas-server"
+[workspace.package]
 version = "0.1.0"
 edition = "2021"
+description = "Powering education, one classroom at a time."
+license = "AGPL-3.0"
+repository = "https://github.com/CKAY-9/atlas"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[package]
+name = "atlas_server"
+version.workspace = true
+edition.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[workspace]
+members = [
+  "crates/api",
+  "crates/api_routes",
+  "crates/db",
+  "crates/db_crud",
+  "crates/db_schema",
+  "crates/utilities"
+]
+
+[workspace.dependencies]
+atlas_api = { version = "0.1.0", path = "./crates/api" }
+atlas_api_routes = { version = "0.1.0", path = "./crates/api_routes" }
+atlas_db = { version = "0.1.0", path = "./crates/db" }
+atlas_db_crud = { version = "0.1.0", path = "./crates/db_crud" }
+atlas_db_schema = { version = "0.1.0", path = "./crates/db_schema" }
+atlas_utils = { version = "0.1.0", path = "./crates/utilities" }
+actix-web = "4.4.0"
+sha2 = "0.10.8"
+actix-cors = "0.6.5"
+chrono = "0.4.31"
+diesel = { version = "2.1.4", default-features = false, features = ["postgres"] }
+serde = { version = "1.0.193", features = ["derive"] }
+dotenv = "0.15.0"
+reqwest = "0.11.22"
+serde_json = "0.8.5"
+rand = "0.8.5"
+iso8601 = "0.6.1"
 
 [dependencies]
+actix-web = { workspace = true }
+actix-cors = { workspace = true }
+atlas_api = { workspace = true }
