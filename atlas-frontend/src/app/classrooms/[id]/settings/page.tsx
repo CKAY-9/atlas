@@ -5,6 +5,7 @@ import { getStoredToken } from "@/utils/token.server";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import ClassroomSettingsClient from "./client";
 
 export const generateMetadata = async ({params}: {
   params: {
@@ -47,6 +48,7 @@ const ClassroomSettingsPage = async ({params}: {
       <AtlasWrapper user={user} current_classroom={classroom}>
         <Link href={`/classrooms/${classroom.id}`}>Back</Link>
         <h1>Settings for {classroom.name}</h1>
+        <ClassroomSettingsClient classroom={classroom} />
       </AtlasWrapper>
     </>
   );

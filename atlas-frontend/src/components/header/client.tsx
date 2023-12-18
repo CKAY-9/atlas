@@ -36,8 +36,9 @@ const PickAClassPopup = (props: {
   }
 
   return (
-    <div>
+    <>
       <h2>Pick a Class</h2>
+      <div style={{"display": "flex", "flexDirection": "column", "gap": "1rem"}}>
       {classes.map((classroom: ClassroomDTO, index: number) => {
         return (
           <Link href={`/classrooms/${classroom.id}/assignments/new`}>
@@ -45,7 +46,8 @@ const PickAClassPopup = (props: {
           </Link>
         );
       })} 
-    </div>
+      </div>
+    </>
   );
 }
 

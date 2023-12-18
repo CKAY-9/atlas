@@ -6,11 +6,6 @@
   .nav {
     display: grid;
     grid-template-columns: 33% 33% 33%;
-    border-bottom: 1px solid rgb(var(--primary));
-
-    button {
-      padding: 1rem;
-    }
   }
 }
 

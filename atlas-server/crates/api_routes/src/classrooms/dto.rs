@@ -27,3 +27,10 @@ pub struct GetClassroomMessage {
 pub struct GetClassroomFromCodeDTO {
     pub classroom_code: String
 }
+
+#[derive(Deserialize)]
+pub struct UpdateClassroomDTO {
+    pub classroom_id: i32,
+    pub name: String,
+    pub description: String
+}

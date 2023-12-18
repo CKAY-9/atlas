@@ -12,7 +12,7 @@ use atlas_api_routes::{
             create_a_classroom, 
             join_classroom
         }, 
-        get::get_classroom_from_id
+        get::get_classroom_from_id, put::update_classroom
     }, 
     announcements::{post::create_announcement, get::get_announcement_from_id}
 };
@@ -36,6 +36,7 @@ pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
                     .service(create_a_classroom)
                     .service(join_classroom)
                     .service(get_classroom_from_id)
+                    .service(update_classroom)
             )
             .service(
                 web::scope("/announcements") // Announcements API

@@ -4,8 +4,7 @@ import AtlasWrapper from "@/components/wrapper/wrapper";
 import { getStoredToken } from "@/utils/token.server";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import style from "./classroom.module.scss";
-import { ClassroomBanner, ClassroomContainer } from "./client";
+import ClassroomContainer from "./client";
 
 export const generateMetadata = async ({params}: {
   params: {
@@ -47,10 +46,7 @@ const ClassroomPage = async ({params}: {
   return (
     <>
       <AtlasWrapper user={user} current_classroom={classroom}>
-        <div className={style.classroom}>
-          <ClassroomBanner user={user} classroom={classroom} />
-          <ClassroomContainer user={user} classroom={classroom} />
-        </div>
+        <ClassroomContainer user={user} classroom={classroom} />
       </AtlasWrapper>
     </>
   );

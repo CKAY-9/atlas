@@ -1,0 +1,74 @@
+.banner {
+  background-color: rgb(var(--secondary));
+  border: 1px solid rgb(var(--secondary));
+  height: 300px;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 0.5rem;
+
+  .teacher_tools {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 1rem;
+
+    a, button {
+      opacity: 0.5;
+      transition: 0.35s ease all;
+
+      img {
+        width: 2rem;
+        height: 2rem;
+        filter: invert(1);
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .info {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 1rem;
+
+    .interact {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      .expand > img {
+        width: 2rem;
+        height: 2rem;
+        filter: invert(1);
+        transition: 0.35s ease all;
+      }
+    }
+
+    .name {
+      font-weight: 900;
+    }
+
+    .teacher {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      .name {
+        font-weight: initial;
+        font-size: 1rem;
+      }
+
+      .icon {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+      }
+    }
+  }
+}

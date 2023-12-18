@@ -1,0 +1,44 @@
+.classroom_feed {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+
+  .feeds {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .feed {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  .side_bar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    section {
+      display: flex;
+      flex-direction: column;
+      background-color: rgb(var(--secondary));
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+    }
+  }
+}
+
+.create_announcment {
+  display: flex;
+  gap: 0.5rem;
+  background-color: rgb(var(--secondary));
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  input[type="text"] {
+    flex: 1;
+  }
+}

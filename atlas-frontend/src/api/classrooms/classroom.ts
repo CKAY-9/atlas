@@ -74,3 +74,24 @@ export const joinClassroomFromCode = async (classroom_code: string): Promise<num
     return null;
   }
 }
+
+export const updateClassroomFromID = async (classroom_id: number, name: string, description: string): Promise<ClassroomDTO | null> => {
+  try {
+    const update_request = await axios({
+      "url": API_URL + "/classrooms",
+      "method": "PUT",
+      "headers": {
+        "Authorization": getCookie("token") || ""
+      },
+      "data": {
+        "name": name,
+        "description": description,
+        "classroom_id": classroom_id
+      }
+    });
+    return update_request.data.classroom;
+  } catch (ex) {
+    console.log(ex);
+    return null;
+  }
+}

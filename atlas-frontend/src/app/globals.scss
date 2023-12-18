@@ -31,8 +31,8 @@ button, select, input, textarea {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   transition: 0.35s ease all;
-  background-color: rgb(var(--primary));
-  border: none;
+  background-color: transparent;
+  border: 1px solid rgb(var(--primary));
 
   &:hover, &:focus {
     border-radius: 0;
@@ -40,7 +40,7 @@ button, select, input, textarea {
   }
 
   &.minimal {
-    background-color: transparent;
+    border: none;
     padding: 0;
   }
 }
