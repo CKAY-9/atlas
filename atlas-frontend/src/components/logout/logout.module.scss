@@ -1,0 +1,15 @@
+.logout {
+  width: fit-content;
+  background: rgb(var(--danger));
+  padding: 0.5rem 2rem;
+  font-weight: 900;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    filter: invert(1);
+  }
+}
