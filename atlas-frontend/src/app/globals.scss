@@ -27,6 +27,32 @@ a {
   text-decoration: none;
 }
 
+button, select, input, textarea {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: 0.35s ease all;
+  background-color: rgb(var(--primary));
+  border: none;
+
+  &:hover, &:focus {
+    border-radius: 0;
+    outline: none;
+  }
+
+  &.minimal {
+    background-color: transparent;
+    padding: 0;
+  }
+}
+
+select {
+  width: fit-content;
+}
+
+button:hover, input[type="submit"]:hover {
+  cursor: pointer;
+}
+
 h1, h2, h3 {
   margin: 1rem 0;
 }
@@ -45,7 +71,8 @@ h4 {
 }
 
 .container {
-  margin: 5rem;
+  margin: 3rem;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }

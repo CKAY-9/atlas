@@ -1,23 +1,27 @@
 "use client"
 
+import { UserDTO } from "@/api/users/dto";
 import Header from "../header/header";
 import NavigationBar from "../navigation-bar/nav-bar";
 import style from "./wrapper.module.scss";
+import { ClassroomDTO } from "@/api/classrooms/dto";
+import { AssignmentDTO } from "@/api/assignments/dto";
 
 export interface WrapperProps {
-  user: any | null,
-  current_classroom: any | null,
-  current_assignment: any | null,
+  user: UserDTO | null,
+  current_classroom: ClassroomDTO | null,
+  current_assignment: AssignmentDTO | null,
+  children: any
 }
 
-const AtlasWrapper = ({children}: any, props: WrapperProps): JSX.Element => {
+const AtlasWrapper = (props: WrapperProps): JSX.Element => {
   return (
     <main className={style.wrapper}>
-      <Header />
+      <Header user={props.user} />
       <div className={style.wrapper_container}>
-        <NavigationBar />
+        <NavigationBar user={props.user} current_assignment={props.current_assignment} current_classroom={props.current_classroom} />
         <div className="container">
-          {children} 
+          {props.children} 
         </div>
       </div>
     </main>
@@ -27,7 +31,8 @@ const AtlasWrapper = ({children}: any, props: WrapperProps): JSX.Element => {
 AtlasWrapper.defaultProps = {
   user: null,
   current_classroom: null,
-  current_assignment: null
+  current_assignment: null,
+  children: {}
 }
 
 export default AtlasWrapper;

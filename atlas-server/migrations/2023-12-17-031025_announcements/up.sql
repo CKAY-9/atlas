@@ -1,4 +1,4 @@
-CREATE TABLE announcments (
+CREATE TABLE announcements (
   id SERIAL NOT NULL PRIMARY KEY,
   sender_id INTEGER NOT NULL,
   classroom_id INTEGER NOT NULL,

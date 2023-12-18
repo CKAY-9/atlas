@@ -15,3 +15,5 @@ doctest = false
 diesel = { workspace = true }
 dotenv = { workspace = true }
 chrono = { workspace = true }
+actix-web = { workspace = true }
+rand = { workspace = true }

@@ -1,7 +1,7 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
-    announcments (id) {
+    announcements (id) {
         id -> Int4,
         sender_id -> Int4,
         classroom_id -> Int4,
@@ -52,11 +52,12 @@ diesel::table! {
         id -> Int4,
         banner -> Text,
         name -> Text,
+        code -> Text,
         description -> Text,
         student_ids -> Array<Int4>,
         teacher_ids -> Array<Int4>,
         assignment_ids -> Array<Int4>,
-        announcment_ids -> Array<Int4>,
+        announcement_ids -> Array<Int4>,
     }
 }
 
@@ -95,7 +96,7 @@ diesel::table! {
 }
 
 diesel::allow_tables_to_appear_in_same_query!(
-    announcments,
+    announcements,
     assignment_entries,
     assignment_messages,
     assignments,

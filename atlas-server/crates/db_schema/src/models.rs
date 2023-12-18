@@ -1,7 +1,7 @@
 use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::users)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct User {
@@ -15,7 +15,7 @@ pub struct User {
     pub teaching_classes: Vec<i32>
 }
 
-#[derive(Insertable, AsChangeset)]
+#[derive(Insertable, AsChangeset, Deserialize, Serialize)]
 #[diesel(table_name = crate::schema::users)]
 pub struct NewUser {
     pub oauth: String,
@@ -27,7 +27,7 @@ pub struct NewUser {
     pub teaching_classes: Vec<i32>
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::course_units)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct CourseUnit {
@@ -47,7 +47,7 @@ pub struct NewCourseUnit {
     pub assignment_ids: Vec<i32>
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::course_materials)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct CourseMaterial {
@@ -69,33 +69,35 @@ pub struct NewCourseMaterial {
     pub attachments: Vec<String>
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::classrooms)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Classroom {
     pub id: i32,
     pub banner: String,
     pub name: String,
+    pub code: String,
     pub description: String,
     pub student_ids: Vec<i32>,
     pub teacher_ids: Vec<i32>,
     pub assignment_ids: Vec<i32>,
-    pub announcment_ids: Vec<i32>
+    pub announcement_ids: Vec<i32>
 }
 
-#[derive(Insertable, AsChangeset)]
+#[derive(Insertable, AsChangeset, Deserialize, Serialize)]
 #[diesel(table_name = crate::schema::classrooms)]
 pub struct NewClassroom {
     pub banner: String,
     pub name: String,
+    pub code: String,
     pub description: String,
     pub student_ids: Vec<i32>,
     pub teacher_ids: Vec<i32>,
     pub assignment_ids: Vec<i32>,
-    pub announcment_ids: Vec<i32>
+    pub announcement_ids: Vec<i32>
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::assignments)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Assignment {
@@ -123,7 +125,7 @@ pub struct NewAssignment {
     pub attachments: Vec<String>
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::assignment_messages)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct AssignmentMessage {
@@ -145,7 +147,7 @@ pub struct NewAssignmentMessage {
     pub assignment_id: i32
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::assignment_entries)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct AssignmentEntry {
@@ -167,22 +169,24 @@ pub struct NewAssignmentEntry {
     pub attachments: Vec<String>
 }
 
-#[derive(Queryable, Selectable, Serialize, Deserialize)]
-#[diesel(table_name = crate::schema::announcments)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
+#[diesel(table_name = crate::schema::announcements)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
-pub struct Announcment {
+pub struct Announcement {
     pub id: i32,
     pub sender_id: i32,
     pub classroom_id: i32,
     pub content: String,
-    pub posted: String
+    pub posted: String,
+    pub seen_by: Vec<i32>
 }
 
 #[derive(Insertable, AsChangeset)]
-#[diesel(table_name = crate::schema::announcments)]
-pub struct NewAnnouncment {
+#[diesel(table_name = crate::schema::announcements)]
+pub struct NewAnnouncement {
     pub sender_id: i32,
     pub classroom_id: i32,
     pub content: String,
-    pub posted: String
+    pub posted: String,
+    pub seen_by: Vec<i32>
 }

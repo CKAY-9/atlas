@@ -1,0 +1,11 @@
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.classes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  gap: 1rem;
+}

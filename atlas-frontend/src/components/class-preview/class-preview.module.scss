@@ -1,0 +1,53 @@
+.preview {
+  border: 1px solid rgb(var(--secondary));
+  border-radius: 0.5rem;
+  overflow: hidden;
+  height: fit-content;
+
+  .banner {
+    background-color: rgb(var(--secondary));
+    height: 100px;
+    width: 100%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .info {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 1rem;
+
+      .name {
+        font-weight: 900;
+      }
+
+      .teacher {
+        margin-top: 1rem;
+      }
+    }
+  }
+  
+  .about {
+    padding: 1rem;
+  }
+
+  .stats {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    section {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      img {
+        width: 1rem;
+        height: 1rem;
+        filter: invert(1);
+      }
+    }
+  }
+}

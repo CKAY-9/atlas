@@ -1,0 +1,16 @@
+.class {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  .name {
+    font-weight: initial;
+    font-size: 1rem;
+  }
+
+  .icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+  }
+}

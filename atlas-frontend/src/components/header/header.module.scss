@@ -5,13 +5,58 @@
   justify-content: space-between;
   align-items: center;
 
+  section {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .nav_icon {
+    width: 2rem;
+    height: 2rem;
+    filter: invert(1);
+  }
+
+  .nav_link {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
   .logo {
     width: 2rem;
     height: 2rem;
   }
 
-  section {
+  .pfp {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+  }
+
+  .user {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.5rem;
   }
 }
+
+.show_menu {
+  position: relative;
+  z-index: 999;
+
+  .show_content {
+    width: 250px;
+    position: absolute;
+    top: 2rem;
+    transform: translateX(calc(-50% + 1rem));
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem 1rem;
+    background-color: rgb(var(--secondary));
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+}
+
+

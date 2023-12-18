@@ -3,6 +3,7 @@ import style from "./login.module.scss";
 import { DISCORD_OAUTH_LINK, GITHUB_OAUTH_LINK, GOOGLE_OAUTH_LINK } from "@/api/oauth";
 import Link from "next/link";
 import Image from "next/image";
+import LoginClient from "./client";
 
 export const generateMetadata = (): Metadata => {
   return {
@@ -62,6 +63,7 @@ const LoginPage = async () => {
           </Link>
         }
       </main>
+      <LoginClient />
     </>
   );
 }

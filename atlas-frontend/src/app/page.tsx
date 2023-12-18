@@ -1,5 +1,10 @@
+import { UserDTO } from "@/api/users/dto";
+import { getUserFromToken } from "@/api/users/user";
 import AtlasWrapper from "@/components/wrapper/wrapper";
+import { getStoredToken } from "@/utils/token.server";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
+import HomeClient from "./client";
 
 export const generateMetadata = (): Metadata => {
   return {
@@ -9,10 +14,18 @@ export const generateMetadata = (): Metadata => {
 }
 
 const HomePage = async () => {
+  const user_token = getStoredToken();
+  const user: UserDTO | null = await getUserFromToken(user_token);
+
+  if (user === null) {
+    redirect("/landing");
+  }
+
   return (
     <>
-      <AtlasWrapper>
-        <h1>Hello, USER</h1>
+      <AtlasWrapper user={user}>
+        <h1>Hello, {user.username}</h1>
+        <HomeClient user={user} />
       </AtlasWrapper>
     </>
   );

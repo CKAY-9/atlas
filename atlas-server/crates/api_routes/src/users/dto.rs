@@ -1,4 +1,5 @@
-use serde::Deserialize;
+use atlas_db_schema::models::User;
+use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
 pub struct UserOAuthDTO {
@@ -37,4 +38,21 @@ pub struct GoogleInitialDTO {
     pub access_token: String,
     pub scope: String,
     pub token_type: String
+}
+
+#[derive(Serialize)]
+pub struct UserResponseMessage {
+    pub message: String,
+    pub user: User
+}
+
+#[derive(Deserialize)]
+pub struct GetUserDTO {
+    pub user_id: i32
+}
+
+#[derive(Serialize)]
+pub struct GetUserMessage {
+    pub message: String,
+    pub user: User
 }

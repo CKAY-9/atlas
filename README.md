@@ -3,7 +3,12 @@
 </div>
 
 # Atlas
-Atlas is a web platform dedicated to making sure education is accessible to everyone.
+Empowering education, one classroom at a time.
+
+## About
+Atlas is a web platform dedicated to making sure education is accessible to everyone. Atlas includes features that allows educators
+and students to interact and engage online. These features are meant to empower students and teachers to make sure they have the
+best expierence learning and teaching.
 
 ## Developing
 
