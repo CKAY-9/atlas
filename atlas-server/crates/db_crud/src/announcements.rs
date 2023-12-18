@@ -1,5 +1,5 @@
 use atlas_db_schema::{models::{NewAnnouncement, Announcement}, schema::announcements};
-use diesel::{PgConnection, RunQueryDsl, QueryResult, QueryDsl};
+use diesel::{PgConnection, RunQueryDsl, QueryResult, QueryDsl, ExpressionMethods};
 
 pub fn create_new_announcement(connection: &mut PgConnection, new_announcement: NewAnnouncement) -> Option<Announcement> {
     let insert_result = diesel::insert_into(announcements::table)
@@ -27,4 +27,11 @@ pub fn get_announcement_with_id(connection: &mut PgConnection, announcement_id: 
             None
         }
     }
+}
+
+pub fn delete_announcement_with_id(connection: &mut PgConnection, announcement_id: i32) -> bool {
+    let delete_result = diesel::delete(announcements::table)
+        .filter(announcements::id.eq(announcement_id))
+        .execute(connection);
+    delete_result.is_ok()
 }

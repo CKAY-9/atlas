@@ -29,6 +29,13 @@ pub fn get_classroom_with_id(connection: &mut PgConnection, classroom_id: i32) -
     }
 }
 
+pub fn delete_classroom_with_id(connection: &mut PgConnection, classroom_id: i32) -> bool {
+    let delete_result = diesel::delete(classrooms::table)
+        .filter(classrooms::id.eq(classroom_id))
+        .execute(connection);
+    delete_result.is_ok()
+}
+
 pub fn create_new_classroom(connection: &mut PgConnection, classroom: NewClassroom) -> Option<Classroom> {
     let insert_result = diesel::insert_into(classrooms::table)
         .values(classroom)
