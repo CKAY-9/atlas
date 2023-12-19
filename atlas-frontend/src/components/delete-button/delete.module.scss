@@ -2,10 +2,12 @@
   display: flex;
   gap: 1rem;
   align-items: center;
-  background-color: rgb(var(--danger));
-  padding: 0.5rem 1rem;
+  background-color: rgb(var(--danger)) !important;
+  opacity: 1 !important;
+  padding: 0.5rem 1rem !important;
   border-radius: 0.5rem;
   width: fit-content;
+  border: none !important;
   font-weight: 900;
 
   img {

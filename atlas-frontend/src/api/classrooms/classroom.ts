@@ -95,3 +95,22 @@ export const updateClassroomFromID = async (classroom_id: number, name: string, 
     return null;
   }
 }
+
+export const deleteClassroomFromID = async (classroom_id: number): Promise<boolean> => {
+  try {
+    const delete_request = await axios({
+      "url": API_URL + "/classrooms",
+      "method": "DELETE",
+      "headers": {
+        "Authorization": getCookie("token") || ""
+      },
+      "data": {
+        "classroom_id": classroom_id
+      }
+    });
+    return true;
+  } catch (ex) {
+    console.log(ex);
+    return false;
+  }
+}

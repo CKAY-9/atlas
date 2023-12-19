@@ -8,6 +8,9 @@ import style from "./feed.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import AnnouncementPreview from "../announcement-preview/announcement";
+import { getAllAssignmentsFromIDs } from "@/api/assignments/assignment";
+import { AssignmentDTO } from "@/api/assignments/dto";
+import AssignmentPreview from "../assignment-preview/assignment";
 
 const ClassroomFeed = (props: {
   user: UserDTO,
@@ -16,6 +19,7 @@ const ClassroomFeed = (props: {
   const [show_code, setShowCode] = useState<boolean>(false);
   const [announcment_content, setAnnouncmentContent] = useState<string>("");
   const [announcements, setAnnouncements] = useState<AnnouncementDTO[]>([]);
+  const [assignments, setAssignments] = useState<AssignmentDTO[]>([]);
   const [feed, setFeed] = useState<any[]>([]);
 
   const is_teacher = props.classroom.teacher_ids.includes(props.user.id);
@@ -24,6 +28,8 @@ const ClassroomFeed = (props: {
     (async () => {
       const temp_announcements = await getAllAnnouncementsFromIDs(props.classroom.announcement_ids);
       setAnnouncements(temp_announcements);
+      const temp_assignments = await getAllAssignmentsFromIDs(props.classroom.assignment_ids);
+      setAssignments(temp_assignments);
     })();
   }, [props.classroom]);
 
@@ -97,6 +103,13 @@ const ClassroomFeed = (props: {
               <h2>This class is empty.</h2>
             </div>
             : <div className={style.feed}>
+              {assignments.map((assignment: AssignmentDTO, index: number) => {
+                return (
+                  <Link key={index} href={`/classrooms/${assignment.classroom_id}/assignments/${assignment.id}`}>
+                    <AssignmentPreview assignment={assignment} />
+                  </Link>
+                )
+              })}
               {announcements.map((announcement: AnnouncementDTO, index: number) => {
                 return (
                   <Link key={index} href={`/classrooms/${announcement.classroom_id}/announcements/${announcement.id}`}>

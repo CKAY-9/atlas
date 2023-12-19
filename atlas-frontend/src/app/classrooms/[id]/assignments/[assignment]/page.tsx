@@ -6,6 +6,7 @@ import { getStoredToken } from "@/utils/token.server"
 import { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
+import AssignmentClient from "./client"
 
 export const generateMetadata = async ({params}: {
   params: {
@@ -54,6 +55,7 @@ const AssignmentPage = async ({params}: {
     <>
       <AtlasWrapper user={user} current_classroom={classroom} current_assignment={assignment}>
         <Link href={`/classrooms/${classroom.id}/assignments`}>Back</Link>
+        <AssignmentClient user={user} classroom={classroom} assignment={assignment} />
       </AtlasWrapper>
     </>
   );

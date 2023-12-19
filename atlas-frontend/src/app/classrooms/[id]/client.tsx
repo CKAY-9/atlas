@@ -8,6 +8,7 @@ import ClassroomBanner from "@/components/class-banner/banner";
 import ClassroomFeed from "@/components/class-feed/feed";
 import { useSearchParams } from "next/navigation";
 import ClassroomPeople from "@/components/class-people/people";
+import ClassroomCourse from "@/components/class-course/course";
 
 const ClassroomContainer = (props: {
   user: UserDTO,
@@ -40,13 +41,13 @@ const ClassroomContainer = (props: {
   return (
     <div className={style.classroom}>
       <nav className={style.nav}>
-        <button onClick={() => changeView(0)} className="minimal">
+        <button className={`${view === 0 ? style.active : ""} + minimal`} onClick={() => changeView(0)}>
           Feed
         </button>
-        <button onClick={() => changeView(1)} className="minimal">
+        <button className={`${view === 1 ? style.active : ""} + minimal`} onClick={() => changeView(1)}>
           Course
         </button>
-        <button onClick={() => changeView(2)} className="minimal">
+        <button className={`${view === 2 ? style.active : ""} + minimal`} onClick={() => changeView(2)}>
           People
         </button>
       </nav>
@@ -55,6 +56,7 @@ const ClassroomContainer = (props: {
         <ClassroomFeed classroom={props.classroom} user={props.user} />
       </div>
       <div style={{"display": view === 1 ? "block" : "none"}}>
+        <ClassroomCourse classroom={props.classroom} user={props.user} />
       </div>
       <div style={{"display": view === 2 ? "block" : "none"}}>
         <ClassroomPeople classroom={props.classroom} />

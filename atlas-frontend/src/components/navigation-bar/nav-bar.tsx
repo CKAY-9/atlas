@@ -13,7 +13,7 @@ const NavigationBar = (props: {
 }) => {
   return (
     <nav className={style.nav_bar}>
-      <div className={style.nav_bar_container}>
+        <div className={style.nav_bar_container}>
         <section>
           <Link className={style.link} href="/">
             <Image 
@@ -25,7 +25,7 @@ const NavigationBar = (props: {
             />
             <span>Home</span>
           </Link>
-          <Link className={style.link} href="/announcments">
+          <Link className={style.link} href="/announcements">
             <Image 
               src="/icons/announcment.svg"
               alt="Announcment"

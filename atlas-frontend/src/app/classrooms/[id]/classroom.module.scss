@@ -5,11 +5,18 @@
 
   .nav {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: repeat(3, 33.333%);
     border-bottom: 1px solid rgb(var(--primary));
 
     button {
       padding: 1rem;
+      border-radius: 0;
+      border-top-right-radius: 0.5rem;
+      border-top-left-radius: 0.5rem;
+
+      &.active {
+        background-color: rgb(var(--neutral));
+      }
     }
   }
 }

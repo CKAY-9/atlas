@@ -3,12 +3,15 @@
 import { UserDTO } from "@/api/users/dto";
 import style from "./banner.module.scss";
 import { ClassroomDTO } from "@/api/classrooms/dto";
-import { useEffect, useState } from "react";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { getAllUsersFromIDs } from "@/api/users/user";
 import Image from "next/image";
 import Link from "next/link";
 import LoadingWheel from "../loading/loading";
 import UserChip from "../user-chip/user-chip";
+import Popup from "../popup/popup";
+import DeleteButton from "../delete-button/delete";
+import { deleteClassroomFromID } from "@/api/classrooms/classroom";
 
 const ClassroomBanner = (props: {
   user: UserDTO,
@@ -17,6 +20,7 @@ const ClassroomBanner = (props: {
   const [teachers, setTeachers] = useState<UserDTO[]>([]);
   const [loading_teachers, setLoadingTeachers] = useState<boolean>(false);
   const [showing_description, setShowingDescription] = useState<boolean>(false);
+  const [confirm_delete, setConfirmDelete] = useState<boolean>(false);
 
   const is_teacher = props.classroom.teacher_ids.includes(props.user.id);
 
@@ -27,8 +31,29 @@ const ClassroomBanner = (props: {
     })();
   }, [props.classroom]);
 
+  const deleteClassroom = async (e: BaseSyntheticEvent) => {
+    e.preventDefault();
+    const deletion = await deleteClassroomFromID(props.classroom.id);
+    if (deletion) {
+      window.location.href = "/";
+      return;
+    }
+  }
+
   return (
     <>
+      {confirm_delete && 
+        <Popup>
+          <button className="minimal" onClick={() => setConfirmDelete(false)}>X</button>
+          <div>
+            <h1>Confirm Deletion</h1>
+            <section style={{"display": "flex", "gap": "1rem"}}>
+              <DeleteButton on_click={deleteClassroom} text="Confirm" />
+              <button onClick={() => setConfirmDelete(false)}>Nevermind</button>
+            </section>
+          </div>
+        </Popup>
+      }
       <div className={style.banner}>
         {is_teacher &&
           <div className={style.teacher_tools}>
@@ -50,7 +75,7 @@ const ClassroomBanner = (props: {
                 height={0}
               />
             </Link> 
-            <button className="minimal">
+            <button onClick={() => setConfirmDelete(true)} className="minimal">
               <Image 
                 src="/icons/delete.svg"
                 alt="Delete"
