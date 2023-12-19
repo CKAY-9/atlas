@@ -107,6 +107,7 @@ pub struct Assignment {
     pub classroom_id: i32,
     pub unit_id: i32,
     pub posted: String,
+    pub teacher_id: i32,
     pub rubric_id: i32,
     pub deadline: String,
     pub attachments: Vec<String>
@@ -120,6 +121,7 @@ pub struct NewAssignment {
     pub classroom_id: i32,
     pub unit_id: i32,
     pub posted: String,
+    pub teacher_id: i32,
     pub rubric_id: i32,
     pub deadline: String,
     pub attachments: Vec<String>

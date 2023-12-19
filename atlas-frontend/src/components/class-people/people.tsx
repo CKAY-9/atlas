@@ -29,15 +29,21 @@ const ClassroomPeople = (props: {
   }
 
   return (
-    <div className={style.people}>
-      <h1>Teachers</h1>
-      {teachers.map((teacher: UserDTO, index: number) => {
-        return (<Link href={`/users/${teacher.id}`}><UserChip user={teacher} key={index} /></Link>);
-      })}
-      <h1>Students</h1>
-      {students.map((student: UserDTO, index: number) => {
-        return (<Link href={`/users/${student.id}`}><UserChip user={student} key={index} /></Link>);
-      })}
+    <div>
+      <h1 style={{"margin": "1rem 0 0.5rem 0"}}>Teachers</h1>
+      <div className={style.seperator} />
+      <div className={style.people}>
+        {teachers.map((teacher: UserDTO, index: number) => {
+          return (<Link href={`/users/${teacher.id}`}><UserChip user={teacher} key={index} /></Link>);
+        })}
+      </div>
+      <h1 style={{"margin": "1rem 0 0.5rem 0"}}>Students</h1>
+      <div className={style.seperator} />
+      <div className={style.people}>
+        {students.map((student: UserDTO, index: number) => {
+          return (<Link href={`/users/${student.id}`}><UserChip user={student} key={index} /></Link>);
+        })}
+      </div>
     </div>
   )
 }

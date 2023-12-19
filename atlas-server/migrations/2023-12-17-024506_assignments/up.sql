@@ -5,6 +5,7 @@ CREATE TABLE assignments (
   classroom_id INTEGER NOT NULL,
   unit_id INTEGER NOT NULL,
   posted TEXT NOT NULL,
+  teacher_id INTEGER NOT NULL,
   rubric_id INTEGER NOT NULL,
   deadline TEXT NOT NULL,
   attachments TEXT[] NOT NULL

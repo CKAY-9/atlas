@@ -1,20 +1,33 @@
 use actix_web::web;
 use atlas_api_routes::{
-    users::{get::{
-        get_discord_oauth, 
-        get_google_oauth, 
-        get_github_oauth, 
-        get_user_information, 
-        get_user_information_from_id, 
-    }, delete::delete_user}, 
+    users::{
+        get::{
+            get_discord_oauth, 
+            get_google_oauth, 
+            get_github_oauth, 
+            get_user_information, 
+            get_user_information_from_id, 
+        },
+        delete::delete_user
+    }, 
     classrooms::{
         post::{
             create_a_classroom, 
             join_classroom
         }, 
-        get::get_classroom_from_id, put::update_classroom, delete::delete_classroom
+        get::get_classroom_from_id, 
+        put::update_classroom, 
+        delete::delete_classroom
     }, 
-    announcements::{post::create_announcement, get::get_announcement_from_id, delete::delete_announcement}
+    announcements::{
+        get::get_announcement_from_id, 
+        post::create_announcement, 
+        delete::delete_announcement
+    }, 
+    assignments::{
+        get::get_assignment, 
+        post::create_assignment
+    }, 
 };
 
 pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
@@ -45,6 +58,11 @@ pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
                     .service(get_announcement_from_id)
                     .service(create_announcement)
                     .service(delete_announcement)
+            )
+            .service(
+                web::scope("/assignments") // Assignments API
+                    .service(get_assignment)
+                    .service(create_assignment)
             )
     );
 }

@@ -1,0 +1,16 @@
+.delete_button {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background-color: rgb(var(--danger));
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  width: fit-content;
+  font-weight: 900;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    filter: invert(1);
+  }
+}

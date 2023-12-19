@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../resources";
 import { UserDTO } from "./dto";
+import { getCookie } from "@/utils/cookies";
 
 export const getUserFromToken = async (token: string): Promise<UserDTO | null> => {
   try {
@@ -46,5 +47,21 @@ export const getAllUsersFromIDs = async (user_ids: number[]): Promise<UserDTO[]>
   } catch (ex) {
     console.log(ex);
     return [];
+  }
+}
+
+export const deleteUser = async (): Promise<boolean> => {
+  try {
+    const delete_request = await axios({
+      "url": API_URL + "/users",
+      "method": "DELETE",
+      "headers": {
+        "Authorization": getCookie("token") || ""
+      }
+    });
+    return true;
+  } catch (ex) {
+    console.log(ex);
+    return false;
   }
 }

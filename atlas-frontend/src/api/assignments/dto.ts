@@ -3,6 +3,7 @@ export interface AssignmentDTO {
   name: string,
   description: string,
   classroom_id: number,
+  teacher_id: number,
   unit_id: number,
   posted: string,
   rubric_id: number,

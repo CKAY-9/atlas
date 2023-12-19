@@ -47,7 +47,7 @@ const AnnouncementsPage = async ({params}: {
     <>
       <AtlasWrapper user={user} current_classroom={classroom}>
         <Link href={`/classrooms/${classroom.id}`}>Back</Link>
-        <h1>Announcements</h1>
+        <h1>Announcements for {classroom.name}</h1>
         <AnnouncementsClient user={user} classroom={classroom} />
       </AtlasWrapper>
     </>

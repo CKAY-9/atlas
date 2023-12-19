@@ -41,6 +41,7 @@ diesel::table! {
         classroom_id -> Int4,
         unit_id -> Int4,
         posted -> Text,
+        teacher_id -> Int4,
         rubric_id -> Int4,
         deadline -> Text,
         attachments -> Array<Text>,
@@ -64,6 +65,7 @@ diesel::table! {
 diesel::table! {
     course_materials (id) {
         id -> Int4,
+        name -> Text,
         teacher_id -> Int4,
         posted -> Text,
         unit_id -> Int4,

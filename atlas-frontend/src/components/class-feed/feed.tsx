@@ -40,7 +40,7 @@ const ClassroomFeed = (props: {
     <>
       {show_code &&
         <Popup>
-          <button style={{"textAlign": "left"}} onClick={() => setShowCode(false)}>X</button>
+          <button style={{"textAlign": "left", "border": "none"}} onClick={() => setShowCode(false)}>X</button>
           <div style={{"textAlign": "center"}}>
             <h2>Classroom Code</h2>
             <h1>{props.classroom.code}</h1>
