@@ -25,6 +25,7 @@ pub async fn create_a_classroom(request: HttpRequest, data: web::Json<NewClassro
                 student_ids: vec![],
                 banner: "".to_string(),
                 assignment_ids: vec![],
+                unit_ids: vec![],
                 description: "No description provided.".to_string(),
                 announcement_ids: vec![]
             };

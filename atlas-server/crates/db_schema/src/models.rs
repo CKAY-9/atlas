@@ -80,6 +80,7 @@ pub struct Classroom {
     pub description: String,
     pub student_ids: Vec<i32>,
     pub teacher_ids: Vec<i32>,
+    pub unit_ids: Vec<i32>,
     pub assignment_ids: Vec<i32>,
     pub announcement_ids: Vec<i32>
 }
@@ -93,6 +94,7 @@ pub struct NewClassroom {
     pub description: String,
     pub student_ids: Vec<i32>,
     pub teacher_ids: Vec<i32>,
+    pub unit_ids: Vec<i32>,
     pub assignment_ids: Vec<i32>,
     pub announcement_ids: Vec<i32>
 }

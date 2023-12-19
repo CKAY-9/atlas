@@ -6,6 +6,7 @@ CREATE TABLE classrooms (
   description TEXT NOT NULL,
   student_ids INTEGER[] NOT NULL,
   teacher_ids INTEGER[] NOT NULL,
+  unit_ids INTEGER[] NOT NULL,
   assignment_ids INTEGER[] NOT NULL,
   announcement_ids INTEGER[] NOT NULL
 );

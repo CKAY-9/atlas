@@ -57,6 +57,7 @@ diesel::table! {
         description -> Text,
         student_ids -> Array<Int4>,
         teacher_ids -> Array<Int4>,
+        unit_ids -> Array<Int4>,
         assignment_ids -> Array<Int4>,
         announcement_ids -> Array<Int4>,
     }

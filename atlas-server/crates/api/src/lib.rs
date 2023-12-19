@@ -28,6 +28,10 @@ use atlas_api_routes::{
         get::get_assignment, 
         post::create_assignment
     }, 
+    course_units::{
+        get::get_unit, 
+        post::create_course_unit
+    }, 
 };
 
 pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
@@ -63,6 +67,11 @@ pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
                 web::scope("/assignments") // Assignments API
                     .service(get_assignment)
                     .service(create_assignment)
+            )
+            .service(
+                web::scope("/units") // Course Units API
+                    .service(get_unit)
+                    .service(create_course_unit)
             )
     );
 }
