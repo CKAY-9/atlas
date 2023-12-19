@@ -2,8 +2,8 @@ use std::time::SystemTime;
 
 use actix_web::{post, Responder, HttpRequest, HttpResponse, web};
 use atlas_db::create_connection;
-use atlas_db_crud::{classrooms::{get_classroom_with_id, update_classroom_with_id}, users::get_user_with_token, assignments::create_new_assignment};
-use atlas_db_schema::models::{Classroom, User, NewAssignment, Assignment, NewClassroom};
+use atlas_db_crud::{classrooms::{get_classroom_with_id, update_classroom_with_id}, users::get_user_with_token, assignments::create_new_assignment, units::{get_unit_with_id, update_unit_with_id}};
+use atlas_db_schema::models::{Classroom, User, NewAssignment, Assignment, NewClassroom, CourseUnit, NewCourseUnit};
 use atlas_utils::{extract_header_value, iso8601};
 use reqwest::StatusCode;
 use crate::dto::Message;
@@ -27,10 +27,6 @@ pub async fn create_assignment(request: HttpRequest, data: web::Json<NewAssignme
                         return Ok(HttpResponse::Ok().status(StatusCode::UNAUTHORIZED).json(Message { message: "User isn't a teacher".to_string() }));
                     }
 
-                    if data.unit_id != 0 {
-                        // TODO: Check unit -> add to unit
-                    }
-
                     let new_assignment = NewAssignment {
                         name: data.name.clone(),
                         unit_id: data.unit_id.clone(),
@@ -48,9 +44,25 @@ pub async fn create_assignment(request: HttpRequest, data: web::Json<NewAssignme
                         Some(insert) => {
                             classroom.assignment_ids.push(insert.id);
                             let class_update: NewClassroom = serde_json::from_str::<NewClassroom>(serde_json::to_string(&classroom).unwrap().as_str()).unwrap();
-                            let update_option: Option<Classroom> = update_classroom_with_id(connection, classroom.id, class_update);
-                            match update_option {
-                                Some(_) => Ok(HttpResponse::Ok().json(NewAssignmentMessage { message: "Created assignment".to_string(), assignment_id: insert.id })),
+                            let class_update_option: Option<Classroom> = update_classroom_with_id(connection, classroom.id, class_update);
+                            match class_update_option {
+                                Some(_) => {
+                                    if data.unit_id != 0 {
+                                        let unit_option: Option<CourseUnit> = get_unit_with_id(connection, data.unit_id);
+                                        if unit_option.is_none() {
+                                            return Ok(HttpResponse::Ok().status(StatusCode::INTERNAL_SERVER_ERROR).json(Message { message: "Failed to get unit".to_string() }));
+                                        }
+                                        let mut unit = unit_option.unwrap();
+                                        unit.assignment_ids.push(insert.id);
+                                        let unit_update: NewCourseUnit = serde_json::from_str::<NewCourseUnit>(serde_json::to_string(&unit).unwrap().as_str()).unwrap();
+                                        let unit_update_option: Option<CourseUnit> = update_unit_with_id(connection, unit.id, unit_update);
+                                        if unit_update_option.is_none() {
+                                            return Ok(HttpResponse::Ok().status(StatusCode::INTERNAL_SERVER_ERROR).json(Message { message: "Failed to update unit".to_string() }));
+                                        }
+                                    }
+
+                                    Ok(HttpResponse::Ok().json(NewAssignmentMessage { message: "Created assignment".to_string(), assignment_id: insert.id }))
+                                },
                                 _ => Ok(HttpResponse::Ok().json(Message { message: "Failed to update classroom".to_string() }))
                             }
                         },

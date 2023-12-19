@@ -3,6 +3,7 @@ import AtlasWrapper from "@/components/wrapper/wrapper";
 import { getStoredToken } from "@/utils/token.server";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import GlobalAssignmentsClient from "./client";
 
 export const generateMetadata = (): Metadata => {
   return {
@@ -21,6 +22,7 @@ const GlobalAssignmentsPage = async () => {
     <>
       <AtlasWrapper user={user}>
         <h1>All Assignments</h1>
+        <GlobalAssignmentsClient user={user} />
       </AtlasWrapper>
     </>
   );

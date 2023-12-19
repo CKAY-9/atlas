@@ -38,7 +38,7 @@ pub struct CourseUnit {
     pub assignment_ids: Vec<i32>
 }
 
-#[derive(Insertable, AsChangeset)]
+#[derive(Insertable, AsChangeset, Deserialize)]
 #[diesel(table_name = crate::schema::course_units)]
 pub struct NewCourseUnit {
     pub name: String,
