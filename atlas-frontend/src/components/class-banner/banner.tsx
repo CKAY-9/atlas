@@ -43,8 +43,7 @@ const ClassroomBanner = (props: {
   return (
     <>
       {confirm_delete && 
-        <Popup>
-          <button className="minimal" onClick={() => setConfirmDelete(false)}>X</button>
+        <Popup close={() => setConfirmDelete(false)}>
           <div>
             <h1>Confirm Deletion</h1>
             <section style={{"display": "flex", "gap": "1rem"}}>

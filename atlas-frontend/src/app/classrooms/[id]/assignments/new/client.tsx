@@ -38,7 +38,7 @@ const NewAssignmentClient = (props: {
   const newAnnouncement = async (e: BaseSyntheticEvent) => {
     e.preventDefault();
     const creation = await createNewAnnouncement(content, props.classroom.id);
-    if (creation === null) {
+    if (creation !== null) {
       window.location.href = `/classrooms/${props.classroom.id}/announcements/${creation}`;
       return;
     }
@@ -50,7 +50,6 @@ const NewAssignmentClient = (props: {
     const creation = await createNewAssignment(name, content, props.classroom.id, selected_unit_id, 0, date.toISOString(), []);
     if (creation !== null) {
       window.location.href = `/classrooms/${props.classroom.id}/assignments/${creation}`;
-
       return;
     }
   }
@@ -70,8 +69,7 @@ const NewAssignmentClient = (props: {
   return (
     <>
       {show_units &&
-        <Popup>
-          <button className="minimal" onClick={() => setShowUnits(false)}>X</button>
+        <Popup close={() => setShowUnits(false)}>
           <h1>Choose a Unit</h1>
           <div style={{"display": "flex", "flexDirection": "column", "gap": "1rem", "marginBottom": "1rem"}}>
             {existing_units.map((unit: UnitDTO, index: number) => {

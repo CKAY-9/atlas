@@ -83,9 +83,8 @@ const HeaderClient = (props: {
   return (
     <>
       {show_new_classroom &&
-        <Popup>
+        <Popup close={() => setShowNewClassroom(false)}>
           <div style={{"display": "flex", "flexDirection": "column", "gap": "1rem"}}>
-            <button onClick={() => setShowNewClassroom(false)} className="minimal">X</button>
             <h1>Create a Classroom</h1>
             <label>Classroom Name</label>
             <input minLength={3} maxLength={100} type="text" placeholder="Name" onChange={(e: BaseSyntheticEvent) => setNewClassroomName(e.target.value)} />
@@ -94,15 +93,13 @@ const HeaderClient = (props: {
         </Popup>
       }
       {show_new_assignment &&
-        <Popup>
-          <button onClick={() => setShowNewAssignment(false)} className="minimal">X</button>
+        <Popup close={() => setShowNewAssignment(false)}>
           <PickAClassPopup user={props.user} />
         </Popup>
       }
       {show_join_classroom &&
-        <Popup>
+        <Popup close={() => setShowJoinClassroom(false)}>
           <div style={{"display": "flex", "flexDirection": "column", "gap": "1rem"}}>
-            <button onClick={() => setShowJoinClassroom(false)} className="minimal">X</button>
             <h1>Join a Classroom</h1>
             <label>Classroom Code</label>
             <input minLength={6} maxLength={12} type="text" placeholder="Code" onChange={(e: BaseSyntheticEvent) => setJoinClassroomCode(e.target.value)} />
