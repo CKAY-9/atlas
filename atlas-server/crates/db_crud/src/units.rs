@@ -31,3 +31,10 @@ pub fn update_unit_with_id(connection: &mut PgConnection, unit_id: i32, unit: Ne
         _ => None
     }
 }
+
+pub fn delete_unit_with_id(connection: &mut PgConnection, unit_id: i32) -> bool {
+    let delete_result = diesel::delete(course_units::table)
+        .filter(course_units::id.eq(unit_id))
+        .execute(connection);
+    delete_result.is_ok()
+}

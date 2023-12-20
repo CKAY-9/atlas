@@ -52,7 +52,9 @@ pub struct NewCourseUnit {
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct CourseMaterial {
     pub id: i32,
+    pub name: String,
     pub teacher_id: i32,
+    pub classroom_id: i32,
     pub posted: String,
     pub unit_id: i32,
     pub content: String,
@@ -62,7 +64,9 @@ pub struct CourseMaterial {
 #[derive(Insertable, AsChangeset)]
 #[diesel(table_name = crate::schema::course_materials)]
 pub struct NewCourseMaterial {
+    pub name: String,
     pub teacher_id: i32,
+    pub classroom_id: i32,
     pub posted: String,
     pub unit_id: i32,
     pub content: String,

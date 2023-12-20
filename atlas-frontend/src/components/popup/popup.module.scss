@@ -40,13 +40,14 @@
     padding: 1rem 2rem;
     border-radius: 0.5rem;
 
-    button:nth-child(1) {
+    &:nth-child(2) {
       width: fit-content;
       background-color: transparent;
       padding: 0.5rem 0;
       font-weight: 900;
       opacity: 0.5;
       transition: 0.35s ease all;
+      border: none;
 
       &:hover {
         opacity: 1;

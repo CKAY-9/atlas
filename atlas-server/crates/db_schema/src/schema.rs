@@ -68,6 +68,7 @@ diesel::table! {
         id -> Int4,
         name -> Text,
         teacher_id -> Int4,
+        classroom_id -> Int4,
         posted -> Text,
         unit_id -> Int4,
         content -> Text,

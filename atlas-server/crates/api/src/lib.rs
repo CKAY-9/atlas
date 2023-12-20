@@ -30,7 +30,13 @@ use atlas_api_routes::{
     }, 
     course_units::{
         get::get_unit, 
-        post::create_course_unit
+        post::create_course_unit, 
+        delete::delete_unit
+    }, 
+    course_materials::{
+        get::get_material, 
+        post::create_course_material, 
+        delete::delete_material
     }, 
 };
 
@@ -72,6 +78,13 @@ pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
                 web::scope("/units") // Course Units API
                     .service(get_unit)
                     .service(create_course_unit)
+                    .service(delete_unit)
+            )
+            .service(
+                web::scope("/materials") // Course Materials API
+                    .service(get_material)
+                    .service(create_course_material)
+                    .service(delete_material)
             )
     );
 }

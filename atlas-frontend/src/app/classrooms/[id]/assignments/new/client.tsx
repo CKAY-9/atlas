@@ -50,6 +50,7 @@ const NewAssignmentClient = (props: {
     const creation = await createNewAssignment(name, content, props.classroom.id, selected_unit_id, 0, date.toISOString(), []);
     if (creation !== null) {
       window.location.href = `/classrooms/${props.classroom.id}/assignments/${creation}`;
+
       return;
     }
   }
@@ -58,6 +59,8 @@ const NewAssignmentClient = (props: {
     e.preventDefault();
     const creation = await createNewCourseUnit(new_unit_name, "No description provided.", props.classroom.id);
     if (creation !== null) {
+      const units = await getAllUnitsFromIds(props.classroom.unit_ids);
+      setExistingUnits(units);
       setSelectedUnitID(creation);
       setShowUnits(false);
       return;
@@ -68,21 +71,23 @@ const NewAssignmentClient = (props: {
     <>
       {show_units &&
         <Popup>
-          <button onClick={() => setShowUnits(false)}>X</button>
+          <button className="minimal" onClick={() => setShowUnits(false)}>X</button>
           <h1>Choose a Unit</h1>
-          <div style={{"display": "flex", "flexDirection": "column": "gap": "1rem"}}>
+          <div style={{"display": "flex", "flexDirection": "column", "gap": "1rem", "marginBottom": "1rem"}}>
             {existing_units.map((unit: UnitDTO, index: number) => {
-              return (<button onClick={() => {
+              return (<button style={{"padding": "0.5rem 1rem", "opacity": "1"}} onClick={() => {
                 setSelectedUnitID(unit.id);
                 setShowUnits(false);
               }} key={index}>{unit.name}</button>)
             })}
-            <button onClick={() => setShowNewUnit(!show_new_unit)}>Create a New Unit</button>
           </div>
-          <section style={{"display": "flex", "gap": "1rem"}}>
-            <input type="text" placeholder="Unit name" onChange={(e: BaseSyntheticEvent) => setNewUnitName(e.target.value)} />
-            <button onClick={newUnit}>Create</button>
-          </section>
+          <div style={{"display": "flex", "flexDirection": "column", "gap": "1rem", "width": "100%"}}>
+            <button style={{"padding": "0.5rem 1rem", "opacity": "1", "width": "100%"}} onClick={() => setShowNewUnit(!show_new_unit)}>Create a New Unit</button>
+            <section style={{"display": show_new_unit ? "flex" : "none", "gap": "1rem"}}>
+              <input type="text" placeholder="Unit name" onChange={(e: BaseSyntheticEvent) => setNewUnitName(e.target.value)} />
+              <button onClick={newUnit}>Create</button>
+            </section>
+          </div>
         </Popup>
       }
       <div className={style.new_container}>
@@ -98,7 +103,6 @@ const NewAssignmentClient = (props: {
             <input onChange={(e: BaseSyntheticEvent) => setName(e.target.value)} type="text" minLength={1} placeholder="Assignment Title" />
             <label>Description</label>
             <textarea placeholder="Assignment Description" cols={30} rows={10} onChange={(e: BaseSyntheticEvent) => setContent(e.target.value)} />
-            <label>Unit</label>
             <section style={{"display": "flex", "gap": "1rem", "alignItems": "center"}}>
               <span>Unit: {selected_unit === null ? "None" : selected_unit.name}</span>
               <button onClick={() => setShowUnits(true)}>Select Unit</button>

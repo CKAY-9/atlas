@@ -31,6 +31,10 @@ pub async fn delete_announcement(request: HttpRequest, data: web::Json<GetAnnoun
                             }
 
                             let mut classroom = classroom_option.unwrap();
+                            if !classroom.teacher_ids.contains(&user.id) {
+                                return Ok(HttpResponse::Ok().status(StatusCode::UNAUTHORIZED).json(Message { message: "User isn't a teacher".to_string() }));
+                            }
+
                             for n in 0..classroom.announcement_ids.len() {
                                 if classroom.announcement_ids.get(n).unwrap().to_owned() == announcement.id {
                                     classroom.announcement_ids.remove(n);

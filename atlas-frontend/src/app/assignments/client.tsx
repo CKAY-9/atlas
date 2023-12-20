@@ -11,6 +11,7 @@ import AssignmentPreview from "@/components/assignment-preview/assignment"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import style from "./assignments.module.scss";
+import LoadingWheel from "@/components/loading/loading"
 
 const Unit = (props: {
   unit: UnitDTO
@@ -84,8 +85,9 @@ const Classroom = (props: {
           style={{"transform": show_content ? "rotate(180deg)" : "rotate(0deg)"}}
         />
       </button>
+      {props.classroom.assignment_ids.length <= 0 && <span>There are no assignments in this class.</span>}
       <section className={style.content} style={{"display": show_content ? "flex" : "none"}}>
-        <div className={style.content}>
+      <div className={style.content}>
         {units.map((unit: UnitDTO, index: number) => {
           return (<Unit unit={unit} key={index} />)
         })}
@@ -104,16 +106,23 @@ const GlobalAssignmentsClient = (props: {
   user: UserDTO
 }) => {
   const [classrooms, setClassrooms] = useState<ClassroomDTO[]>([]);
+  const [loading_classes, setLoadingClasses] = useState<boolean>(true);
 
   useEffect(() => {
     (async () => {
       const classes = await getAllClassesFromIDs(props.user.enrolled_classes);
       setClassrooms(classes);
+      setLoadingClasses(false);
     })();
   }, [props.user]);
 
+  if (loading_classes) {
+    return (<LoadingWheel size_in_rems={5} />);
+  }
+
   return (
     <>
+      {classrooms.length <= 0 && <span>You aren't enrolled in any classes.</span>}
       {classrooms.map((classroom: ClassroomDTO, index: number) => {
         return (<Classroom classroom={classroom} key={index} />);
       })}
