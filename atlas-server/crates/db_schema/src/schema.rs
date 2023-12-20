@@ -18,6 +18,7 @@ diesel::table! {
         assignment_id -> Int4,
         grade -> Float4,
         submitted -> Text,
+        turned_in -> Bool,
         attachments -> Array<Text>,
     }
 }
@@ -87,6 +88,17 @@ diesel::table! {
 }
 
 diesel::table! {
+    pop_quizzes (id) {
+        id -> Int4,
+        name -> Text,
+        description -> Text,
+        creator -> Int4,
+        posted -> Text,
+        questions -> Array<Text>,
+    }
+}
+
+diesel::table! {
     users (id) {
         id -> Int4,
         oauth -> Text,
@@ -107,5 +119,6 @@ diesel::allow_tables_to_appear_in_same_query!(
     classrooms,
     course_materials,
     course_units,
+    pop_quizzes,
     users,
 );
