@@ -37,7 +37,7 @@ use atlas_api_routes::{
         get::get_material, 
         post::create_course_material, 
         delete::delete_material
-    }, 
+    }, assignment_entries::{get::get_assignment_entry, post::new_assignment_entry}, 
 };
 
 pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
@@ -85,6 +85,11 @@ pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
                     .service(get_material)
                     .service(create_course_material)
                     .service(delete_material)
+            )
+            .service(
+                web::scope("/entries")
+                    .service(get_assignment_entry)
+                    .service(new_assignment_entry)
             )
     );
 }

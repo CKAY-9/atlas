@@ -4,5 +4,6 @@ CREATE TABLE assignment_entries (
   assignment_id INTEGER NOT NULL,
   grade REAL NOT NULL,
   submitted TEXT NOT NULL,
+  turned_in BOOLEAN NOT NULL,
   attachments TEXT[] NOT NULL
 );

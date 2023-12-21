@@ -164,6 +164,7 @@ pub struct AssignmentEntry {
     pub assignment_id: i32,
     pub grade: f32,
     pub submitted: String,
+    pub turned_in: bool,
     pub attachments: Vec<String>
 }
 
@@ -174,6 +175,7 @@ pub struct NewAssignmentEntry {
     pub assignment_id: i32,
     pub grade: f32,
     pub submitted: String,
+    pub turned_in: bool,
     pub attachments: Vec<String>
 }
 
@@ -197,4 +199,26 @@ pub struct NewAnnouncement {
     pub content: String,
     pub posted: String,
     pub seen_by: Vec<i32>
+}
+
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug)]
+#[diesel(table_name = crate::schema::pop_quizzes)]
+#[diesel(check_for_backend(diesel::pg::Pg))]
+pub struct PopQuiz {
+    id: i32,
+    name: String,
+    description: String,
+    creator: i32,
+    posted: String,
+    questions: Vec<String>
+}
+
+#[derive(Insertable, AsChangeset)]
+#[diesel(table_name = crate::schema::pop_quizzes)]
+pub struct NewPopQuiz {
+    name: String,
+    description: String,
+    creator: i32,
+    posted: String,
+    questions: Vec<String>
 }
