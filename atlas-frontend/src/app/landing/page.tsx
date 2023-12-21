@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getStoredToken } from "@/utils/token.server";
 import { getUserFromToken } from "@/api/users/user";
 import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
 
 export const generateMetadata = (): Metadata => {
   return {
@@ -50,6 +51,7 @@ const LandingPage = async () => {
           </p>
         </section>
       </main>
+      <Footer user={user} />
     </>
   );
 }

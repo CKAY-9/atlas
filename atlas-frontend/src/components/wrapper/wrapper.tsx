@@ -6,6 +6,7 @@ import NavigationBar from "../navigation-bar/nav-bar";
 import style from "./wrapper.module.scss";
 import { ClassroomDTO } from "@/api/classrooms/dto";
 import { AssignmentDTO } from "@/api/assignments/dto";
+import Footer from "../footer/footer";
 
 export interface WrapperProps {
   user: UserDTO | null,
@@ -24,6 +25,7 @@ const AtlasWrapper = (props: WrapperProps): JSX.Element => {
           {props.children} 
         </div>
       </div>
+      <Footer user={props.user} />
     </main>
   );
 }
