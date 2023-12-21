@@ -104,7 +104,7 @@ pub async fn get_github_oauth(query: web::Query<UserOAuthDTO>) -> Result<Redirec
         return Ok(Redirect::to(format!("{}/users/login?msg=ue", get_env_var("FRONTEND_URL"))).permanent());
     }
     let user_response_parsed: GithubUserDTO = serde_json::from_str::<GithubUserDTO>(user_response.text().await?.as_str())?;
-    let oauth = format!("gituhb-{}", user_response_parsed.id);
+    let oauth = format!("github-{}", user_response_parsed.id);
     let connection = &mut create_connection();
     let user: Option<User> = get_user_with_oauth_id(connection, oauth);
 
@@ -136,7 +136,7 @@ pub async fn get_github_oauth(query: web::Query<UserOAuthDTO>) -> Result<Redirec
     let user_token: String = format!("{:X}", hasher.finalize()).to_string();
     let new_user = NewUser {
         username: user_response_parsed.login,
-        oauth: format!("discord-{}", user_response_parsed.id),
+        oauth: format!("github-{}", user_response_parsed.id),
         joined: iso8601(&SystemTime::now()),
         avatar: user_response_parsed.avatar_url,
         token: user_token.clone(),
