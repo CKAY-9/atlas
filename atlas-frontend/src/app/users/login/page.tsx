@@ -15,15 +15,16 @@ export const generateMetadata = (): Metadata => {
 const LoginPage = async () => {
   return (
     <>
+      <div className={style.vignette}></div>
       <main className={style.container}>
-        <Link href="/">
+        <Link href="/" style={{"margin": "0 auto 1rem auto"}}>
           <Image 
             src="/marks/atlas-mark-white.png"
             alt="Atlas"
             sizes="100%"
             width={0}
             height={0}
-            style={{"width": "10rem", "height": "10rem", "marginBottom": "1rem"}}
+            style={{"width": "10rem", "height": "10rem", "zIndex": "10000", "position": "relative"}}
           />
         </Link>
         {DISCORD_OAUTH_LINK !== undefined &&
@@ -51,15 +52,15 @@ const LoginPage = async () => {
           </Link>
         }
         {GOOGLE_OAUTH_LINK !== undefined &&
-          <Link href={GOOGLE_OAUTH_LINK}>
+          <Link href={GOOGLE_OAUTH_LINK} className={style.oauth} style={{"backgroundColor": "#ffffff"}}>
             <Image 
-              src="/marks/google-mark-white.svg"
+              src="/marks/google-mark-white.png"
               alt="Google"
               sizes="100%"
               width={0}
               height={0}
-              style={{"width": "auto", "height": "3.5rem"}}
             />
+            <span style={{"color": "#000000"}}>Sign in with Google</span>
           </Link>
         }
       </main>

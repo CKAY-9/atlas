@@ -66,3 +66,38 @@
     }
   }
 }
+
+.teacher_view {
+  display: flex;
+  gap: 1rem;
+
+  .students {
+    display: flex;
+    flex-direction: column;
+    background: rgb(var(--secondary));
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 0.5rem;
+
+    .student {
+      border-radius: 0.5rem;
+      border: 1px solid rgb(var(--primary));
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  .work {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .tools {
+      padding: 1rem;
+      background-color: rgb(var(--secondary));
+      border-radius: 0.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+  }
+}

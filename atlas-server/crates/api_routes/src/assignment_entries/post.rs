@@ -1,10 +1,8 @@
-use std::time::SystemTime;
-
 use actix_web::{post, HttpRequest, Responder, web, HttpResponse};
 use atlas_db::create_connection;
 use atlas_db_crud::{users::get_user_with_token, assignments::get_assignment_with_id, classrooms::get_classroom_with_id, assignment_entries::create_new_assignment_entry};
 use atlas_db_schema::models::{User, Assignment, NewAssignmentEntry, AssignmentEntry};
-use atlas_utils::{extract_header_value, iso8601};
+use atlas_utils::extract_header_value;
 use reqwest::StatusCode;
 use crate::dto::Message;
 use super::dto::{NewAssignmentEntryDTO, NewAssignmentEntryMessage};
@@ -34,11 +32,11 @@ pub async fn new_assignment_entry(request: HttpRequest, data: web::Json<NewAssig
                     }
 
                     let new_entry = NewAssignmentEntry {
-                        student_id: user.id,
+                        student_id: data.student_id,
                         assignment_id: assignment.id,
                         attachments: data.attachments.clone(),
                         grade: 0f32,
-                        submitted: iso8601(&SystemTime::now()),
+                        submitted: "".to_string(),
                         turned_in: false
                     };
                     let insert_option: Option<AssignmentEntry> = create_new_assignment_entry(connection, new_entry);

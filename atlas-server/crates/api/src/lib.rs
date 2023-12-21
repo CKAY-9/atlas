@@ -37,7 +37,19 @@ use atlas_api_routes::{
         get::get_material, 
         post::create_course_material, 
         delete::delete_material
-    }, assignment_entries::{get::get_assignment_entry, post::new_assignment_entry}, 
+    }, 
+    assignment_entries::{
+        get::{
+            get_assignment_entry, 
+            get_assignment_entry_for_student
+        }, 
+        post::new_assignment_entry,
+        put::update_assignment_entry
+    }, 
+    pop_quizzes::{
+        post::new_pop_quiz, 
+        get::get_pop_quiz
+    }, 
 };
 
 pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
@@ -87,9 +99,16 @@ pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
                     .service(delete_material)
             )
             .service(
-                web::scope("/entries")
+                web::scope("/entries") // Assignment Entries API
                     .service(get_assignment_entry)
+                    .service(get_assignment_entry_for_student)
                     .service(new_assignment_entry)
+                    .service(update_assignment_entry)
+            )
+            .service(
+                web::scope("/quizzes") // Pop Quizzes API
+                    .service(new_pop_quiz)
+                    .service(get_pop_quiz)
             )
     );
 }

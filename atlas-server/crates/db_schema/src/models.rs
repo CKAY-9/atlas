@@ -119,7 +119,7 @@ pub struct Assignment {
     pub attachments: Vec<String>
 }
 
-#[derive(Insertable, AsChangeset)]
+#[derive(Insertable, AsChangeset, Serialize, Deserialize)]
 #[diesel(table_name = crate::schema::assignments)]
 pub struct NewAssignment {
     pub name: String,
@@ -205,20 +205,20 @@ pub struct NewAnnouncement {
 #[diesel(table_name = crate::schema::pop_quizzes)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct PopQuiz {
-    id: i32,
-    name: String,
-    description: String,
-    creator: i32,
-    posted: String,
-    questions: Vec<String>
+    pub id: i32,
+    pub name: String,
+    pub description: String,
+    pub creator: i32,
+    pub posted: String,
+    pub questions: Vec<String>
 }
 
 #[derive(Insertable, AsChangeset)]
 #[diesel(table_name = crate::schema::pop_quizzes)]
 pub struct NewPopQuiz {
-    name: String,
-    description: String,
-    creator: i32,
-    posted: String,
-    questions: Vec<String>
+    pub name: String,
+    pub description: String,
+    pub creator: i32,
+    pub posted: String,
+    pub questions: Vec<String>
 }
