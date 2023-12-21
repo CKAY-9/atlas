@@ -38,7 +38,7 @@ export const Classrooms = (props: {
   return (
     <>
       {classes.map((classroom: ClassroomDTO, index: number) => {
-        return (<Link key={index} style={{"border": "1px solid rgb(var(--primary))", "padding": "0.5rem 1rem", "borderRadius": "0.5rem"}} href={`/classrooms/${classroom.id}`}><ClassChip classroom={classroom} key={index} /></Link>)
+        return (<Link key={index} className={style.class} href={`/classrooms/${classroom.id}`}><ClassChip classroom={classroom} key={index} /></Link>)
       })}
     </>
   )

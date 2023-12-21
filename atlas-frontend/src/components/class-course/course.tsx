@@ -78,7 +78,7 @@ const ClassroomCourse = (props: {
           />
         </button>
         {announcements.length <= 0 && <span>There are no announcements to see.</span>}
-        <div className={style.list} style={{"display": show_assignments ? "flex" : "none"}}>
+        <div className={style.list} style={{"display": show_announcements ? "flex" : "none"}}>
           {announcements.map((announcement: AnnouncementDTO, index: number) => {
             return (
               <Link key={index} href={`/classrooms/${announcement.classroom_id}/assignments/${announcement.id}`}>

@@ -9,13 +9,42 @@ import { getUserFromID } from "@/api/users/user";
 import LoadingWheel from "@/components/loading/loading";
 import UserChip from "@/components/user-chip/user-chip";
 
-const AssignmentClient = (props: {
-  user: UserDTO,
+export interface AssignmentProps {
+  user: UserDTO
   classroom: ClassroomDTO,
   assignment: AssignmentDTO
-}) => {
+}
+
+const StudentView = (props: AssignmentProps) => {
+  return (
+    <div className={style.assignment_container}>
+      <section className={style.description}>
+        <p>{props.assignment.description}</p>
+        <span style={{"opacity": "0.5"}}>Posted on {new Date(props.assignment.posted).toLocaleDateString()}</span>
+      </section>
+      <section className={style.interaction}>
+        <div className={style.work}>
+          <h2>Work</h2>
+          <div className={style.attachments}>
+            <button>Add Attachment</button>
+          </div>
+          <button>Submit</button>
+        </div>
+        <div className={style.messages}>
+          <h2>Private Comments</h2>
+          <div className={style.comments}>
+            <button>New Comment</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+const AssignmentClient = (props: AssignmentProps) => {
   const [teacher, setTeacher] = useState<UserDTO | null>(null);
   const [loading_teacher, setLoadingTeacher] = useState<boolean>(true);
+  const [is_student, setIsStudent] = useState<boolean>(!props.classroom.teacher_ids.includes(props.user.id));
 
   useEffect(() => {
     (async () => {
@@ -32,8 +61,10 @@ const AssignmentClient = (props: {
         ? <LoadingWheel size_in_rems={2} />
         : <UserChip user={teacher} />
       } 
-      <p>{props.assignment.description}</p>
-      <span style={{"opacity": "0.5"}}>Posted on {new Date(props.assignment.posted).toLocaleDateString()}</span>
+      {is_student 
+        ? <StudentView user={props.user} assignment={props.assignment} classroom={props.classroom} />
+        : <></>
+      }
     </div>
   );
 }
