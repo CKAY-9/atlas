@@ -28,12 +28,12 @@ const NavigationBar = (props: {
           <Link className={style.link} href="/announcements">
             <Image 
               src="/icons/announcment.svg"
-              alt="Announcment"
+              alt="Announcement"
               sizes="100%"
               width={0}
               height={0}
             />
-            <span>Announcments</span>
+            <span>Announcements</span>
           </Link>
           <Link className={style.link} href="/assignments">
             <Image 

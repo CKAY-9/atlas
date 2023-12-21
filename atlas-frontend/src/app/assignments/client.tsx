@@ -12,6 +12,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import style from "./assignments.module.scss";
 import LoadingWheel from "@/components/loading/loading"
+import Link from "next/link"
 
 const Unit = (props: {
   unit: UnitDTO
@@ -29,7 +30,7 @@ const Unit = (props: {
   return (
     <div>
       <button onClick={() => setShowAssignments(!show_assignments)} className={style.expand}>
-        <h2>{props.unit.name}</h2>
+        <h3>{props.unit.name}</h3>
         <Image 
           src="/icons/expand.svg"
           alt="Expand"
@@ -41,7 +42,11 @@ const Unit = (props: {
       </button>
       <section className={style.content} style={{"display": show_assignments ? "flex" : "none"}}>
         {assignments.map((assignment: AssignmentDTO, index: number) => {
-          return (<AssignmentPreview assignment={assignment} key={index} />);
+          return (
+            <Link href={`/classrooms/${assignment.classroom_id}/assignments/${assignment.id}`}>
+            <AssignmentPreview assignment={assignment} key={index} />
+            </Link>
+          );
         })}
       </section>
     </div>
@@ -75,7 +80,7 @@ const Classroom = (props: {
   return (
     <div className={style.classroom}>
       <button onClick={() => setShowContent(!show_content)} className={style.expand}>
-        <h1>{props.classroom.name}</h1>
+        <h2>{props.classroom.name}</h2>
         <Image 
           src="/icons/expand.svg"
           alt="Expand"

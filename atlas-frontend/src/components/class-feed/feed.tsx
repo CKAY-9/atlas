@@ -20,7 +20,7 @@ const ClassroomFeed = (props: {
   const [announcment_content, setAnnouncmentContent] = useState<string>("");
   const [announcements, setAnnouncements] = useState<AnnouncementDTO[]>([]);
   const [assignments, setAssignments] = useState<AssignmentDTO[]>([]);
-  const [feed, setFeed] = useState<any[]>([]);
+  const [feed, setFeed] = useState<(AssignmentDTO | AnnouncementDTO)[]>([]);
 
   const is_teacher = props.classroom.teacher_ids.includes(props.user.id);
 
@@ -30,6 +30,15 @@ const ClassroomFeed = (props: {
       setAnnouncements(temp_announcements);
       const temp_assignments = await getAllAssignmentsFromIDs(props.classroom.assignment_ids);
       setAssignments(temp_assignments);
+
+      let temp_array: (AssignmentDTO | AnnouncementDTO)[] = [];
+      temp_array = temp_array.concat(temp_announcements);
+      temp_array = temp_array.concat(temp_assignments);
+      temp_array.sort((a, b) => {
+        return (new Date(a.posted).getTime()) > (new Date(b.posted).getTime()) ? 1 : -1;
+      });
+      temp_array = temp_array.reverse();
+      setFeed(temp_array);
     })();
   }, [props.classroom]);
 
@@ -102,19 +111,20 @@ const ClassroomFeed = (props: {
               <h2>This class is empty.</h2>
             </div>
             : <div className={style.feed}>
-              {assignments.map((assignment: AssignmentDTO, index: number) => {
-                return (
-                  <Link key={index} href={`/classrooms/${assignment.classroom_id}/assignments/${assignment.id}`}>
-                    <AssignmentPreview assignment={assignment} />
-                  </Link>
-                )
-              })}
-              {announcements.map((announcement: AnnouncementDTO, index: number) => {
-                return (
-                  <Link key={index} href={`/classrooms/${announcement.classroom_id}/announcements/${announcement.id}`}>
-                    <AnnouncementPreview announcement={announcement} /> 
-                  </Link>
-                );
+              {feed.map((feed_entry: (AssignmentDTO | AnnouncementDTO), index: number) => {
+                if (Object.keys(feed_entry).includes("name")) {
+                  return (
+                    <Link key={index} href={`/classrooms/${feed_entry.classroom_id}/assignments/${feed_entry.id}`}>
+                      <AssignmentPreview assignment={feed_entry as AssignmentDTO} /> 
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <Link key={index} href={`/classrooms/${feed_entry.classroom_id}/announcements/${feed_entry.id}`}>
+                      <AnnouncementPreview announcement={feed_entry as AnnouncementDTO} /> 
+                    </Link>
+                  );
+                }
               })}
             </div>
           }
