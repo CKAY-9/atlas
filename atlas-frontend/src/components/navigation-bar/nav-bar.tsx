@@ -25,6 +25,18 @@ const NavigationBar = (props: {
             />
             <span>Home</span>
           </Link>
+          {(props.user?.teaching_classes.length || 0) > 0 &&
+            <Link className={style.link} href="/quizzes">
+              <Image 
+                src="/icons/quiz.svg"
+                alt="Quizzes"
+                sizes="100%"
+                width={0}
+                height={0}
+              />
+              <span>Quizzes</span>
+            </Link>
+          }
           <Link className={style.link} href="/announcements">
             <Image 
               src="/icons/announcment.svg"
