@@ -1,4 +1,5 @@
 pub mod users;
+pub mod files;
 pub mod assignment_entries;
 pub mod assignment_messages;
 pub mod pop_quizzes;

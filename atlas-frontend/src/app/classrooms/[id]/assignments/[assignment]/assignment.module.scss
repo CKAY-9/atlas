@@ -78,11 +78,27 @@
     padding: 1rem;
     gap: 1rem;
     border-radius: 0.5rem;
+    box-shadow: var(--shdw-1);
+    transform: scale(1);
+    transition: 0.35s ease all;
+
+    &:hover {
+      box-shadow: var(--shdw-2);
+      transform: scale(1.0125);
+    }
 
     .student {
       border-radius: 0.5rem;
       border: 1px solid rgb(var(--primary));
       padding: 0.5rem 1rem;
+      box-shadow: var(--shdw-1);
+      transform: scale(1);
+      transition: 0.35s ease all;
+
+      &:hover {
+        box-shadow: var(--shdw-2);
+        transform: scale(1.0125);
+      }
     }
   }
 
@@ -98,6 +114,54 @@
       border-radius: 0.5rem;
       display: flex;
       gap: 1rem;
+      box-shadow: var(--shdw-1);
+      transform: scale(1);
+      transition: 0.35s ease all;
+
+      &:hover {
+        box-shadow: var(--shdw-2);
+        transform: scale(1.0125);
+      }
+
+      .tool_buttons {
+        width: 100%;
+        display: flex;
+        align-tracks: center;
+        justify-content: flex-end;
+        gap: 1rem;
+
+        .tool {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          opacity: 0.5;
+          transition: 0.35s ease all;
+          padding: 0;
+          border: none;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          button:hover, a:hover {
+            cursor: pointer;
+          }
+
+          img {
+            width: 2rem;
+            height: 2rem;
+            filter: invert(1);
+          }
+
+          input {
+            width: 3rem;
+            border: none;
+            border-bottom: 1px solid rgb(var(--primary));
+            border-radius: 0;
+            padding: 0;
+          }
+        }
+      }
     }
   }
 }

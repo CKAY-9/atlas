@@ -2,7 +2,7 @@ use std::time::SystemTime;
 use actix_web::{get, web::{self, Redirect}, HttpResponse, Responder, HttpRequest};
 use atlas_db_schema::models::{User, NewUser};
 use reqwest::StatusCode;
-use crate::{users::dto::{GetUserDTO, GetUserMessage, GoogleInitialDTO, UserOAuthDTO, DiscordUserDTO, DiscordInitialDTO, GithubUserDTO, GithubInitialDTO, UserResponseMessage}, dto::Message};
+use crate::{users::dto::{GetUserDTO, GetUserMessage, GoogleInitialDTO, GoogleUserDTO, UserOAuthDTO, DiscordUserDTO, DiscordInitialDTO, GithubUserDTO, GithubInitialDTO, UserResponseMessage}, dto::Message};
 use atlas_utils::{get_discord_api_url, get_env_var, get_local_api_url, iso8601, extract_header_value};
 use atlas_db::create_connection;
 use atlas_db_crud::users::{get_user_with_oauth_id, update_user_with_id, create_new_user, get_user_with_token, get_user_with_id};
@@ -162,9 +162,56 @@ pub async fn get_google_oauth(query: web::Query<UserOAuthDTO>) -> Result<impl Re
         .header("Content-Type", "application/x-www-form-urlencoded")    
         .send()
         .await?;
-    let _initial_response_parsed: GoogleInitialDTO = serde_json::from_str(initial_response.text().await?.as_str())?;
+    let initial_response_parsed: GoogleInitialDTO = serde_json::from_str(initial_response.text().await?.as_str())?;
+    
+    let user_response = client
+        .get(format!("https://www.googleapis.com/oauth2/v2/userinfo"))
+        .header("Content-type", "application/json; charset=UTF-8")
+        .header("Authorization", format!("{} {}", initial_response_parsed.token_type, initial_response_parsed.access_token))
+        .send()
+        .await?;
+    let user_response_parsed: GoogleUserDTO = serde_json::from_str(user_response.text().await?.as_str())?;
+    let oauth = format!("google-{}", user_response_parsed.id);
+    let connection = &mut create_connection();
+    let user: Option<User> = get_user_with_oauth_id(connection, oauth);
 
-    Ok(HttpResponse::Ok())
+    if user.is_some() {
+        let user_unwrap = user.unwrap();
+        let _update = update_user_with_id(connection, user_unwrap.id, NewUser {
+            oauth: user_unwrap.oauth, 
+            username: user_response_parsed.name, 
+            avatar: user_response_parsed.picture,
+            joined: user_unwrap.joined, 
+            token: user_unwrap.token.clone(), 
+            enrolled_classes: user_unwrap.enrolled_classes, 
+            teaching_classes: user_unwrap.teaching_classes 
+        });
+        return Ok(Redirect::to(format!("{}/users/login?token={}", get_env_var("FRONTEND_URL"), user_unwrap.token)));
+    }
+
+    let mut rng = rand::thread_rng();
+    let random_number: f64 = rng.gen();
+    let mut hasher = Sha256::new();
+    hasher.update(
+        format!(
+            "{}{}",
+            user_response_parsed.id,
+            random_number * 2_000_000_000f64
+        )
+        .into_bytes(),
+    );
+    let user_token: String = format!("{:X}", hasher.finalize()).to_string();
+    let new_user = NewUser {
+        username: user_response_parsed.name,
+        oauth: format!("google-{}", user_response_parsed.id),
+        joined: iso8601(&SystemTime::now()),
+        avatar: user_response_parsed.picture,
+        token: user_token.clone(),
+        enrolled_classes: vec![],
+        teaching_classes: vec![]
+    };
+    let _insert = create_new_user(connection, new_user);
+    Ok(Redirect::to(format!("{}/users/login?token={}", get_env_var("FRONTEND_URL"), user_token)))
 }
 
 // User Information

@@ -9,6 +9,7 @@ const ClassroomSettingsClient = (props: {
   classroom: ClassroomDTO
 }) => {
   const [name, setName] = useState<string>(props.classroom.name);
+  const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState<string>(props.classroom.description);
 
   const update = async (e: BaseSyntheticEvent) => {
@@ -29,6 +30,10 @@ const ClassroomSettingsClient = (props: {
       <section>
         <label>Course Description</label>
         <input type="text" placeholder="Course Description" defaultValue={description} onChange={(e: BaseSyntheticEvent) => setDescription(e.target.value)} />
+      </section>
+      <section>
+        <label>Course Banner</label>
+        <input type="file" onChange={(e: BaseSyntheticEvent) => setFile(e.target.values[0])} />
       </section>
       <button onClick={update} style={{"width": "fit-content"}}>Update</button>
     </div>

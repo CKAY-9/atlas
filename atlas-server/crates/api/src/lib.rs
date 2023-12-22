@@ -50,6 +50,7 @@ use atlas_api_routes::{
         post::new_pop_quiz, 
         get::get_pop_quiz
     }, 
+    files::post::upload_file, 
 };
 
 pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
@@ -109,6 +110,10 @@ pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
                 web::scope("/quizzes") // Pop Quizzes API
                     .service(new_pop_quiz)
                     .service(get_pop_quiz)
+            )
+            .service(
+                web::scope("/files") // Files API
+                    .service(upload_file)
             )
     );
 }

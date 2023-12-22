@@ -40,6 +40,15 @@ pub struct GoogleInitialDTO {
     pub token_type: String
 }
 
+#[derive(Deserialize)]
+pub struct GoogleUserDTO {
+    pub locale: String,
+    pub given_name: String,
+    pub picture: String,
+    pub id: String,
+    pub name: String
+}
+
 #[derive(Serialize)]
 pub struct UserResponseMessage {
     pub message: String,

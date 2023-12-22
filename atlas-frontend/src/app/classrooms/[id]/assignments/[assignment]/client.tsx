@@ -10,6 +10,8 @@ import LoadingWheel from "@/components/loading/loading";
 import UserChip from "@/components/user-chip/user-chip";
 import { AssignmentEntryDTO } from "@/api/entries/dto";
 import { createNewAssignmentEntry, getStudentAssignmentEntry } from "@/api/entries/entry";
+import Image from "next/image";
+import Popup from "@/components/popup/popup";
 
 export interface AssignmentProps {
   user: UserDTO
@@ -48,6 +50,8 @@ const TeacherView = (props: AssignmentProps) => {
   const [loading_students, setLoadingStudents] = useState<boolean>(true);
   const [selected_entry, setSelectedEntry] = useState<AssignmentEntryDTO | null>(null);
   const [loading_selected, setLoadingSelected] = useState<boolean>(false);
+  const [messages, setMessages] = useState<any[]>([]);
+  const [showing_messages, setShowingMessages] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -77,39 +81,92 @@ const TeacherView = (props: AssignmentProps) => {
   }
 
   return (
-    <div className={style.teacher_view}>
-      <nav className={style.students}>
-        {loading_students
-          ? <LoadingWheel size_in_rems={2} />
-          : <>
-            {students.length <= 0
-              ? <span>There are no enrolled students in this class.</span>
+    <>
+      {showing_messages &&
+        <Popup close={() => setShowingMessages(false)}>
+          <h1>Messages</h1>
+        </Popup>
+      }
+      <div className={style.teacher_view}>
+        <nav className={style.students}>
+          {loading_students
+            ? <LoadingWheel size_in_rems={2} />
+            : <>
+              {students.length <= 0
+                ? <span>There are no enrolled students in this class.</span>
+                : <>
+                  <span>Students</span>
+                  {students.map((student: UserDTO, index: number) => {
+                    return (
+                      <button onClick={async (e: BaseSyntheticEvent) => await selectStudent(e, student.id)} className={style.student}>
+                        <UserChip user={student} key={index} />
+                      </button>
+                    );
+                  })}
+                </>
+              }
+            </>
+          } 
+        </nav>
+        <div className={style.work}>
+          <div className={style.tools}>
+            {selected_entry === null
+              ? <span>Select a student to see tools.</span>
+              : <div className={style.tool_buttons}>
+                <button onClick={() => setShowingMessages(true)} className={style.tool}>
+                  <Image 
+                    src="/icons/chat.svg"
+                    alt="Messages"
+                    sizes="100%"
+                    width={0}
+                    height={0}
+                  />
+                </button>
+                <button className={style.tool}>
+                  <Image 
+                    src="/icons/delete.svg"
+                    alt="Delete"
+                    sizes="100%"
+                    width={0}
+                    height={0}
+                  />
+                </button>
+                <section className={style.tool}>
+                  <Image 
+                    src="/icons/grade.svg"
+                    alt="Grade"
+                    sizes="100%"
+                    width={0}
+                    height={0}
+                  />
+                  <input type="text" inputMode="numeric" pattern="[0-9\s]{13, 19}" placeholder="Grade" /> 
+                  <span>/ 100</span>
+                </section>
+                <button>Update</button>
+              </div>
+            }
+          </div>
+          <div className={style.entry}>
+            {loading_selected
+              ? <LoadingWheel size_in_rems={2} />
               : <>
-                <span>Students</span>
-                {students.map((student: UserDTO, index: number) => {
-                  return (
-                    <button onClick={async (e: BaseSyntheticEvent) => await selectStudent(e, student.id)} className={style.student}>
-                      <UserChip user={student} key={index} />
-                    </button>
-                  );
-                })}
+              {selected_entry === null 
+                ? <span>No assignment entry selected.</span>
+                : <>
+                    <h2>Assignment Entry</h2>
+                    {selected_entry.attachments.length <= 0 
+                      ? <span>No attachments found.</span>
+                      : <>
+                      </>
+                    }
+                </>
+                }
               </>
             }
-          </>
-        } 
-      </nav>
-      <div className={style.work}>
-        <div className={style.tools}>
-        </div>
-        <div className={style.entry}>
-          {selected_entry === null 
-            ? <span>No assignment entry selected.</span>
-            : <>
-            </>
-          }
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
