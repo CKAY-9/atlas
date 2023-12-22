@@ -50,6 +50,45 @@ const LandingPage = async () => {
             best expierence learning and teaching.
           </p>
         </section>
+        <section style={{"marginTop": "5rem"}}>
+          <h1 style={{"textAlign": "center"}}>Features</h1>
+          <div className={style.features}>
+            <div className={style.feature}>
+              <Image 
+                src="/icons/engagement.svg"
+                alt="Engagement"
+                sizes="100%"
+                width={0}
+                height={0}
+              />
+              <h3>Engagement</h3>
+              <span>Atlas offers tools and activities that allow students to engage with course material.</span>
+            </div>
+            <div className={style.feature}>
+              <Image 
+                src="/icons/bolt.svg"
+                alt="Lightning Bolt"
+                sizes="100%"
+                width={0}
+                height={0}
+              />
+              <h3>Easy-to-Use</h3>
+              <span>Atlas ensures that it's platform is easy-to-use for everyone by providing a clean and intuitive design.</span>
+            </div>
+            <div className={style.feature}>
+              <Image 
+                src="/icons/unlocked.svg"
+                alt="Freedom"
+                sizes="100%"
+                width={0}
+                height={0}
+              />
+              <h3>Privacy and Freedom</h3>
+              <span>Atlas ensures that all users privacy is protected. Atlas uses the <Link href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL-3.0 License</Link> and is open-source on <Link href="https://github.com/CKAY-9/atlas">GitHub</Link>.</span>
+
+            </div>
+          </div>
+        </section> 
       </main>
       <Footer user={user} />
     </>
