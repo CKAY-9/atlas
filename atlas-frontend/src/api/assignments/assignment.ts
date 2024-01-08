@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_URL } from "../resources";
 import { getCookie } from "@/utils/cookies";
 import { AssignmentDTO } from "./dto";
+import { appendMutableCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 export const createNewAssignment = async (
   name: string,
@@ -70,5 +71,46 @@ export const getAllAssignmentsFromIDs = async (ids: number[]): Promise<Assignmen
   } catch (ex) {
     console.log(ex);
     return [];
+  }
+}
+
+export const createNewAssignmentComment = async (content: string, assignment_id: number, sender: number, receiver: number) => {
+  try {
+    const create_request = await axios({
+      "url": API_URL + "/messages",
+      "method": "POST",
+      "data": {
+        content,
+        assignment_id,
+        sender,
+        receiver
+      },
+      "headers": {
+        "Authorization": getCookie("token") || ""
+      }
+    });
+    return create_request.data
+  } catch (ex) {
+    console.log(ex);
+    return null;
+  }
+}
+
+export const getAssignmentCommentFromID = async (comment_id: number) => {
+  try {
+    const fetch_request = await axios({
+      "url": API_URL + "/messages",
+      "method": "GET",
+      "headers": {
+        "Authorization": getCookie("token") || ""
+      },
+      "params": {
+        comment_id
+      }
+    });
+    return fetch_request.data
+  } catch (ex) {
+    console.log(ex);
+    return null;
   }
 }

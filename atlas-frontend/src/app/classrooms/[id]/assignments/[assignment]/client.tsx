@@ -12,6 +12,7 @@ import { AssignmentEntryDTO } from "@/api/entries/dto";
 import { createNewAssignmentEntry, getStudentAssignmentEntry } from "@/api/entries/entry";
 import Image from "next/image";
 import Popup from "@/components/popup/popup";
+import AssignmentComments from "@/components/assignment-comments/comments";
 
 export interface AssignmentProps {
   user: UserDTO
@@ -34,12 +35,7 @@ const StudentView = (props: AssignmentProps) => {
           </div>
           <button>Submit</button>
         </div>
-        <div className={style.messages}>
-          <h2>Private Comments</h2>
-          <div className={style.comments}>
-            <button>New Comment</button>
-          </div>
-        </div>
+        <AssignmentComments assignment={props.assignment} />
       </section>
     </div>
   )

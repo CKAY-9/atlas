@@ -1,0 +1,25 @@
+.assignment_comments {
+  display: flex;
+  flex-direction: column;
+  background: rgb(var(--secondary));
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  .comments {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(var(--primary));
+
+    .new_comment {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    & > * {
+      width: 100%;
+    }
+  }
+}
