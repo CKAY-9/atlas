@@ -10,3 +10,11 @@ export interface AssignmentDTO {
   deadline: string,
   attachments: string[]
 }
+
+export interface AssignmentMessageDTO {
+  id: number,
+  content: string,
+  assignment_id: number,
+  sender_id: number,
+  receiver_id: number
+}

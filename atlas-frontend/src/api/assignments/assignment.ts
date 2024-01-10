@@ -1,8 +1,8 @@
 import axios from "axios";
 import { API_URL } from "../resources";
 import { getCookie } from "@/utils/cookies";
-import { AssignmentDTO } from "./dto";
-import { appendMutableCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import { AssignmentDTO, AssignmentMessageDTO } from "./dto";
+import { request } from "http";
 
 export const createNewAssignment = async (
   name: string,
@@ -74,7 +74,12 @@ export const getAllAssignmentsFromIDs = async (ids: number[]): Promise<Assignmen
   }
 }
 
-export const createNewAssignmentComment = async (content: string, assignment_id: number, sender: number, receiver: number) => {
+export const createNewAssignmentComment = async (
+  content: string, 
+  assignment_id: number, 
+  sender: number, 
+  receiver: number
+): Promise<null | {message: string, assignment_message: AssignmentMessageDTO}> => {
   try {
     const create_request = await axios({
       "url": API_URL + "/messages",
@@ -112,5 +117,24 @@ export const getAssignmentCommentFromID = async (comment_id: number) => {
   } catch (ex) {
     console.log(ex);
     return null;
+  }
+}
+
+export const getPersonalCommentsFromID = async (assignment_id: number): Promise<AssignmentMessageDTO[]> => {
+  try {
+    const fetch_request = await axios({
+      "url": API_URL + "/messages/personal",
+      "method": "GET",
+      "headers": {
+        "Authorization": getCookie("token") || ""
+      },
+      "params": {
+        assignment_id
+      }
+    });
+    return fetch_request.data.messages
+  } catch (ex) {
+    console.log(ex);
+    return [];
   }
 }
