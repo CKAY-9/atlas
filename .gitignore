@@ -1,3 +1,4 @@
 
 atlas-frontend/.env
 atlas-server/.env
+.DS_Store

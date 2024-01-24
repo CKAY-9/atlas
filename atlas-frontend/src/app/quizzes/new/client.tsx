@@ -16,6 +16,7 @@ const NewQuizClient = () => {
   const [current_options, setCurrentOptions] = useState<string[]>([]);
 
   const createQuiz = async (e: BaseSyntheticEvent) => {
+    e.preventDefault();
     const creation = await createNewPopQuiz(name, description, questions);
     if (creation !== null) {
       window.location.href = `/quizzes/${creation}`;
@@ -45,6 +46,9 @@ const NewQuizClient = () => {
                   correct_answer: 0
                 }])
               }}>New Question</button>
+              <button onClick={() => {
+                setShowingQuestions(false)
+              }}>Update</button>
             </div>
             {current_question !== null &&
               <div className={style.question}> 
@@ -92,7 +96,7 @@ const NewQuizClient = () => {
         <textarea placeholder="Quiz Description" rows={10} cols={30} onChange={(e: BaseSyntheticEvent) => setDescription(e.target.value)} />
         <label>Questions</label>
         <button onClick={() => setShowingQuestions(true)}>View Questions</button>
-        <button>Create</button>
+        <button onClick={createQuiz}>Create</button>
       </div>
     </>
   );

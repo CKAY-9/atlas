@@ -117,7 +117,7 @@ pub fn configure_api_routes(cfg: &mut web::ServiceConfig) {
             )
             .service(
                 web::scope("/messages") // Messages API
-                    .service(new_assignment_message)
+                    //.service(new_assignment_message)
             )
     );
 }
