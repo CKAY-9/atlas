@@ -35,7 +35,7 @@ const StudentView = (props: AssignmentProps) => {
           </div>
           <button>Submit</button>
         </div>
-        <AssignmentComments assignment={props.assignment} />
+        <AssignmentComments user={props.user} assignment={props.assignment} />
       </section>
     </div>
   )
